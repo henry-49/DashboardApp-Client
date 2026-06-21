@@ -3,7 +3,7 @@
         <div class="modal-content">
                 <div class="header">
                     <div class="content">
-                        <span class="title">Order properties</span>
+                        <span class="title">Product properties</span>
                         <Close_Icon class="icon" @click="closeModal()" />
                     </div>
                 </div>
@@ -12,13 +12,13 @@
             <label>
                 <strong>
                     <small>
-                        Product
+                        Supplier
                         <span class="validation-mark">*</span>
                     </small>
                 </strong>
             </label>
 
-            <select>
+            <select v-model="supplierId">
                 <option value="" disabled selected>Select product</option>
             </select>
 
@@ -26,85 +26,63 @@
             <label>
                 <strong>
                     <small>
-                        Customer
+                        Category
                         <span class="validation-mark">*</span>
                     </small>
                 </strong>
             </label>
 
-            <select>
-                <option value="" disabled selected>Select customer</option>
+            <select v-model="categoryId">
+                <option value="" disabled selected>Select category</option>
             </select>
 
-
             <label>
                 <strong>
                     <small>
-                        Required date
+                        Product name
                         <span class="validation-mark">*</span>
                     </small>
                 </strong>
             </label>
 
-            <input type="date">
-
-            <label>
-                <strong>
-                    <small>
-                        Shipped name
-                        <span class="validation-mark">*</span>
-                    </small>
-                </strong>
-            </label>
-
-            <input type="text" v-model="shippedName">
-
-            <label>
-                <strong>
-                    <small>
-                        Shipped address
-                        <span class="validation-mark">*</span>
-                    </small>
-                </strong>
-            </label>
-
-            <input type="text" v-model="shippedAddress">
+            <input type="text" v-model="productName">
 
 
             <label>
                 <strong>
                     <small>
-                        Shipped city
+                        Unit price
                         <span class="validation-mark">*</span>
                     </small>
                 </strong>
             </label>
 
-            <input type="text" v-model="shippedCity">
+            <input type="number" v-model="unitPrice">
 
 
             <label>
                 <strong>
                     <small>
-                        Shipped portal code
+                        Units in stock
                         <span class="validation-mark">*</span>
                     </small>
                 </strong>
             </label>
 
-            <input type="text" v-model="shippedPostalCode">
-
+            <input type="number" v-model="unitsInStock">
 
             <label>
                 <strong>
                     <small>
-                        Shipped country
+                        Units on oder
                         <span class="validation-mark">*</span>
                     </small>
                 </strong>
             </label>
 
-            <input type="text" v-model="shippedCountry">
+            <input type="number" v-model="unitsOnOrder">
+
+
 
 
             <div class="footer">
@@ -127,6 +105,7 @@
     import Close_Icon from '@/assets/icons/Close_Icon.vue';
     import { defineComponent, ref } from 'vue';
 
+
     export default defineComponent({
         components: {
             Close_Icon,
@@ -140,14 +119,12 @@
 
             const buttonEnable = ref(false)
 
-            const productId = ref();
-            const customerId = ref();
-            const requiredDate = ref();
-            const shippedName = ref();
-            const shippedAddress = ref();
-            const shippedCity = ref();
-            const shippedPostalCode = ref();
-            const shippedCountry = ref();
+            const supplierId = ref();
+            const categoryId = ref();
+            const productName = ref();
+            const unitPrice = ref();
+            const unitsInStock = ref();
+            const unitsOnOrder = ref();
 
             const addNewRecord = () => {
                 closeModal();
@@ -160,14 +137,12 @@
 
             return {
                 buttonEnable,
-                productId,
-                customerId,
-                requiredDate,
-                shippedName,
-                shippedAddress,
-                shippedCity,
-                shippedPostalCode,
-                shippedCountry,
+                categoryId,
+                supplierId,
+                productName,
+                unitPrice,
+                unitsInStock,
+                unitsOnOrder,
 
                 addNewRecord,
                 closeModal
