@@ -3,10 +3,15 @@
         <span class="title">
             Reporting / Orders
         </span>
-        <button class="button is-primary is-on-header ">
+        <button class="button is-primary is-on-header" @click="openCreateModal">
+            <Plus_Icon class="nav_icon" />
             New Order
         </button>
     </header>
+
+    <create-order-modal v-if="isCreateModalVisiable" @close-modal="closeModal">
+
+    </create-order-modal>
 
     <div>
         <table>
@@ -52,39 +57,59 @@
 </template>
 <script lang="ts">
 
-import { loadOrders } from '@/api/reporting';
-import { defineComponent, onMounted, ref } from 'vue';
+    import { loadOrders } from '@/api/reporting';
+    import { defineComponent, onMounted, ref } from 'vue';
 
-import Edit_Icon from '@/assets/icons/Edit_Icon.vue';
-import Trash_Icon from '@/assets/icons/Trash_Icon.vue';
+    import Edit_Icon from '@/assets/icons/Edit_Icon.vue';
+    import Trash_Icon from '@/assets/icons/Trash_Icon.vue';
+    import Plus_Icon from '@/assets/icons/Plus_Icon.vue';
 
-export default defineComponent({
+    import CreateOrderModal from '../modals/CreateOrderModal.vue';
 
-    components: {
-        Edit_Icon,
-        Trash_Icon
-    },
 
-    setup() {
+    export default defineComponent({
 
-        const orders = ref()
+        components: {
+            CreateOrderModal,
+            Edit_Icon,
+            Trash_Icon,
+            Plus_Icon
+        },
 
-        const getOrders = async () => {
-            orders.value = await loadOrders();
+        setup() {
+
+            const orders = ref();
+
+            const isCreateModalVisiable = ref(false);
+
+            const openCreateModal = () => {
+                isCreateModalVisiable.value = true;
+            }
+
+            const closeModal = () => {
+                isCreateModalVisiable.value = false;
+            }
+
+            const getOrders = async () => {
+                orders.value = await loadOrders();
+            }
+
+            console.log(orders)
+            
+            onMounted(() => {
+                getOrders()
+            })
+
+            return {
+                isCreateModalVisiable,
+                orders,
+
+                openCreateModal,
+                closeModal
+            }
         }
-
-        console.log(orders)
         
-        onMounted(() => {
-            getOrders()
-        })
-
-        return {
-            orders
-        }
-    }
-    
-})
+    })
 </script>
 <style lang="">
     
